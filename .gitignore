@@ -16,6 +16,7 @@
 src/css
 src/fonts
 src/less/*
+src/config.json
 !src/less/index.less
 
 # misc

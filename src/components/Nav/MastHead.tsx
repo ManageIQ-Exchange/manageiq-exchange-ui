@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import { GitHubLogin } from './GitHubLogin'
 const pfLogo = require('../../img/logo-alt.svg');
 const pfBrand = require('../../img/brand-alt.svg');
 
@@ -24,13 +24,12 @@ export const MastHead: React.StatelessComponent<Props> = props => {
         </Navbar.Brand>
       </Navbar.Header>
       <Navbar.Collapse>
-        <Nav pullRight>         
+        <Nav pullRight>
           <li className="dropdown">
             <a
               className="dropdown-toggle nav-item-iconic"
-            > <button className="btn btn-primary" type="button">
-              Login GitHub <span title="Login GitHub" className="fa pficon-key" />
-              </button>
+            >
+            <GitHubLogin/>
             </a>
           </li>
         </Nav>

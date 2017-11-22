@@ -1,7 +1,16 @@
 import { toParams, toQuery } from './utils';
 
+import { Config } from '../../configuration/config'
+let config: Config = require('../../config.json');
+  
 class ConnectPopup {
-  constructor(id, url, options = {}) {
+  id: string
+  url: string
+  options: any
+  promise: any
+  _iid: any
+  window: any
+  constructor(id: string, url:string, options = {}) {
     this.id = id;
     this.url = url;
     this.options = options;
@@ -58,16 +67,23 @@ class ConnectPopup {
     }
   }
 
-  then(...args) {
+  then(...args: any[]) {
     return this.promise.then(...args);
   }
 
-  catch(...args) {
+  catch(...args: any[]) {
     return this.promise.then(...args);
   }
 
-  static open(...args) {
-    const popup = new this(...args);
+  static open(...args: any[]) {
+    const search = toQuery({
+      client_id: config.github.clientId,
+      user:'email',
+      redirect_uri: config.github.redirectUri,
+    });
+    const popup = new ConnectPopup('github-oauth-authorize',
+      `https://github.com/login/oauth/authorize?${search}`,
+      { height: 1000, width: 600 });
 
     popup.open();
     popup.poll();
