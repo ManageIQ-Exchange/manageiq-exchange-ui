@@ -28,10 +28,9 @@ class App extends React.Component<Props, State> {
 
   render() {
     return (
-      <div>
-        {this.props.credentials.token && <MastHead />}
-        {this.props.credentials.token &&
-          <VerticalNav handleNavClick={this.handleNavClick} />}
+      <div>        
+        <VerticalNav handleNavClick={this.handleNavClick} />
+        <MastHead />
         <Routes childProps={this.props} />
       </div>
     );
