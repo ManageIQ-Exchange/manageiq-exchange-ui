@@ -57,29 +57,22 @@ export class GitHubLogin extends React.Component<Props,State> {
 	    if (!data.code) {
 	      return this.onFailure(new Error('\'code\' not found'));
 	    }else{
-	      const acess_token_query = toQuery({
-			  client_id: config.github.clientId,
-			  client_secret: config.github.clientSecret,
-			  code:data.code,
-			  redirect_uri: config.github.redirectUri,
-			});
 
 	      console.log(data)
 
-	      console.log(config.github.access_token_url+`?${acess_token_query}`)
-
-	      fetch(config.github.access_token_url+`?${acess_token_query}`, { 
-	        method: 'POST',
-	        headers:{
-	             'Origin': 'http://localhost:3000/',
-	             'Content-Type': 'application/json',
-	             'Accept': 'application/json'
-		    }
+	      fetch(config.api+'v'+config.api_version+'/api/github/token', { 
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({code: data.code})
 	      })
 	      .then(function(response) {
-	        console.log(response.status)
+					console.log(response.status)
+					return response.json();
 	      }).then(function(data) {
-	        console.log(data);
+	        console.log(data.token);
 	      });
 
 	      this.setState({ 

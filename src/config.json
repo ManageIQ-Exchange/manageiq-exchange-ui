@@ -1,9 +1,10 @@
 {
     "host": "http://localhost:3000/",
+    "api": "http://localhost:5000/",
+    "api_version": "1",
     "github": {
       "redirectUri":"http://localhost:3000/users/auth/github/callback",
       "clientId": "f49137725fc5870b0104",
-      "clientSecret": "18b6b09cbac08ba1201aee4fc9cfb05c210f7c0c",
       "authorize_url": "https://github.com/login/oauth/authorize",
       "access_token_url": "https://github.com/login/oauth/access_token",
       "api_url": "https://api.github.com"
