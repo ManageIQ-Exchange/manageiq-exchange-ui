@@ -1,0 +1,124 @@
+.icon-spin {
+    -webkit-animation: icon-spin 2s infinite linear;
+            animation: icon-spin 2s infinite linear;
+  }
+  
+  @-webkit-keyframes icon-spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(359deg);
+              transform: rotate(359deg);
+    }
+  }
+  
+  @keyframes icon-spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(359deg);
+              transform: rotate(359deg);
+    }
+  }
+
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    color: #848992;
+    text-align: center;
+}
+
+ #footer-line {
+  height: 1px;
+  background-color: #ccc;
+}
+
+.container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.copyright{
+  padding-top: 18px;
+  text-align: right;
+}
+
+.version{
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 30px;
+}
+
+.left-border{
+  border-left: 1px solid #FFFFFF;
+  padding-left: 30px;
+}
+
+.banner-container{
+
+  text-align: center;
+  padding: 13px 30px 0 15px;
+}
+
+.indexFooter {
+  color: #FFF;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
+  padding: 30px 0;  
+}
+
+.social-logos{
+  margin-top: 60px;
+  margin-bottom: 20px;
+  
+}
+#container{
+  width:80%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+ul {
+  list-style-type: none;
+  color: #9d9d9d;
+}
+#authors-table{
+  width:100%;
+}
+
+#authors-table thead{
+  background-color: #ebebeb;
+  border-bottom: none;
+}
+
+#authors-table tbody>tr:nth-child(even){
+  background-color: #fafafa;
+}
+
+#authors-table tbody>tr:nth-child(odd) {
+  background-color: #FFF;
+}
+
+.img-userprofile{
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.info-userprofile{
+  display: inline-block;
+  vertical-align: bottom;
+  color: #848992;
+}
