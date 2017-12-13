@@ -24,12 +24,9 @@ export default class IndexPage extends React.Component {
     api.then(
       response => {
           this.setState({version: 'Version '+response.data.data.version, colorApi: 'green'})
-          sessionStorage.setItem('Apiversion',response.data.data.version)
-          sessionStorage.setItem('ApiColorState','green')
       },
       error => {
           this.setState({version: '', colorApi: 'red'})
-          sessionStorage.setItem('ApiColorState','red')
       }
     );
   }
@@ -59,7 +56,7 @@ export default class IndexPage extends React.Component {
               <h3>SERVICES</h3>
               <ul>
                 <li>API {this.state.version}   <GoPrimitiveDot color={this.state.colorApi} /></li>
-                <li>Web Version 1.0</li>
+                <li>Web Version { config.version }</li>
               </ul>  
             </section>  
 

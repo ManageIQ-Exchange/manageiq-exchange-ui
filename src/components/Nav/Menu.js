@@ -11,23 +11,27 @@ import FaRefresh from 'react-icons/lib/fa/refresh';
 import FaSpinner from 'react-icons/lib/fa/spinner';
 import Api from '../../service/Api'
 
-
-const urlbaseForApi =`${ config[process.env.NODE_ENV].API_BACKEND }/${ config[process.env.NODE_ENV].API_VERSION }`
-const urlForApiSignin =`${ urlbaseForApi}/users/sign_in`
-
-
-
 export default class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.UserLogged  = this.UserLogged.bind(this);
     this.UserLogging = this.UserLogging.bind(this);
     this.UserLogOut  = this.UserLogOut.bind(this);
+    var user = ""
+    var ava = ""
+    var logged = false
+    if (typeof(sessionStorage) !== 'undefined') {
+      if (sessionStorage.getItem('github_login')){
+          logged=true,
+          user=sessionStorage.getItem('github_login'),
+          ava=sessionStorage.getItem('github_avatar_url')
+      }
+    }
     this.state = {
-      logged: false,
+      logged: logged,
       logging: false,
-      username: "",
-      avatar: ""
+      username: user,
+      avatar: ava
     };
   }
 
@@ -49,6 +53,8 @@ export default class Menu extends React.Component {
     .then(response => {
         if(response.status == 200){
           this.setState({logged:false})
+          console.log("Logout")
+          sessionStorage.clear()
         }else{
           console.log("ERROR "+response)
         }
