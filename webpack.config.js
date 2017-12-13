@@ -1,12 +1,12 @@
 "use strict";
 
-const debug = process.env.NODE_ENV !== "production";
+const isDevBuild = process.env.NODE_ENV !== "production";
 
 const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  devtool: debug ? 'inline-sourcemap' : null,
+  devtool: isDevBuild ? 'inline-sourcemap' : null,
   entry: path.join(__dirname, 'src', 'app-client.js'),
   devServer: {
     inline: true,
@@ -27,13 +27,17 @@ module.exports = {
       loader: ['babel-loader'],
       query: {
         cacheDirectory: 'babel_cache',
-        presets: debug ? ['react', 'es2015', 'react-hmre'] : ['react', 'es2015']
+        presets: isDevBuild ? ['react', 'es2015', 'react-hmre'] : ['react', 'es2015']
       }
     }]
   },
-  plugins: debug ? [] : [
+  plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.GALAXY_API_BACKEND': JSON.stringify(process.env.GALAXY_API_BACKEND),
+      'process.env.GALAXY_API_VERSION': JSON.stringify(process.env.GALAXY_API_VERSION),
+      'process.env.GITHUB_OAUTH_ID': JSON.stringify(process.env.GITHUB_OAUTH_ID),
+      'process.env.GITHUB_REDIRECTUI': JSON.stringify(process.env.GITHUB_REDIRECTUI)
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),

@@ -19,9 +19,8 @@ class GitHubLogin extends React.Component {
   onBtnClick(){
     this.props.islogging(true)
     const search = toQuery({
-      client_id: config[process.env.NODE_ENV].GITHUB_OAUTH_ID ,
-      user:'email',
-      redirect_uri: config[process.env.NODE_ENV].GITHUB_REDIRECTUI,
+      client_id: process.env.GITHUB_OAUTH_ID,
+      user:'email'
     });
     const popup = PopupWindow.open(
       'github-oauth-authorize',
