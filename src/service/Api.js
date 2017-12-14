@@ -3,9 +3,9 @@ import config from '../config';
 import { LogError } from './Log';
 
 //Server Backend
-const BackendServer = process.env.GALAXY_API_BACKEND
+const BackendServer = config.GALAXY_API_BACKEND
 //Version of API
-const Version       = process.env.GALAXY_API_VERSION
+const Version       = config.GALAXY_API_VERSION
 //Root API Base
 const ApiBaseURL    = `${ BackendServer }/${ Version }`
 

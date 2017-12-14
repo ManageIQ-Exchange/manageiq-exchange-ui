@@ -34,10 +34,10 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'process.env.GALAXY_API_BACKEND': JSON.stringify(process.env.GALAXY_API_BACKEND),
-      'process.env.GALAXY_API_VERSION': JSON.stringify(process.env.GALAXY_API_VERSION),
-      'process.env.GITHUB_OAUTH_ID': JSON.stringify(process.env.GITHUB_OAUTH_ID),
-      'process.env.GITHUB_REDIRECTUI': JSON.stringify(process.env.GITHUB_REDIRECTUI)
+      'GALAXY_API_BACKEND': JSON.stringify(process.env.GALAXY_API_BACKEND),
+      'GALAXY_API_VERSION': JSON.stringify(process.env.GALAXY_API_VERSION),
+      'GITHUB_OAUTH_ID': JSON.stringify(process.env.GITHUB_OAUTH_ID),
+      'GITHUB_REDIRECTUI': JSON.stringify(process.env.GITHUB_REDIRECTUI)
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
