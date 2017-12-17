@@ -3,9 +3,9 @@ import config from '../config';
 import { LogError } from './Log';
 
 //Server Backend
-const BackendServer = process.env.GALAXY_API_BACKEND
+const BackendServer = 'http://backend-manageiq-galaxy.int.open.paas.redhat.com'
 //Version of API
-const Version       = process.env.GALAXY_API_VERSION
+const Version       = 'v1'
 //Root API Base
 const ApiBaseURL    = `${ BackendServer }/${ Version }`
 
@@ -22,7 +22,8 @@ const ApiGetUser  =  `${ ApiBaseURL }/users/` /* Get a specific user  adding id 
 const GetUserStats = `https://api.github.com/users/` /* Get a specific user stats in GIT  adding id or username in path*/ 
 
 //Spins
-const ApiRefreshSpin = `${ ApiBaseURL}/spins/refresh?`  /* Refresh Spins */
+const ApiGetSpins = `${ ApiBaseURL}/spins`  /* Get Spins */
+const ApiRefreshSpin = `${ ApiBaseURL}/spins/refresh`  /* Refresh Spins */
 
 class Api{
 
@@ -31,8 +32,8 @@ class Api{
     }
     headerAuthenticated(){
         return {
-            'X-USER-ID' : sessionStorage.getItem('authentication_token'),
-            'X-USER-TOKEN' : sessionStorage.getItem('github_id')
+            'X-USER-ID' : sessionStorage.getItem('github_id'),
+            'X-USER-TOKEN' : sessionStorage.getItem('authentication_token')
         }
     }
 
@@ -60,16 +61,45 @@ class Api{
     }
     static GetUser(id_or_username){
         const api = new this();
-        api.request('get', ApiGetUser + id_or_username) 
+        api.request('get', ApiGetUser + id_or_username+ "?expand=resources") 
+        return api
+    }
+    static GetUsersBy(username){
+        const api = new this();
+        api.request('get', ApiGetUsers + "?query="+username) 
+        return api
+    }
+    static GetUserSpins(username){
+        const api = new this();
+        api.request('get', ApiGetUser + username + "/spins") 
+        return api
+    }
+    static GetUserSpinsBy(username, spin_name){
+        const api = new this();
+        api.request('get', ApiGetUser + username + "/spins?query=" + spin_name) 
+        return api
+    }
+
+    static GetUserSpin(username,repo_name){
+        const api = new this();
+        api.request('get', ApiGetUser + username + "/spins/"+ repo_name + "?expand=resources") 
         return api
     }
     static GitUserStats(id_or_username){
         const api = new this();
-        api.request('get', GetUserStats + id_or_username) 
+        api.request('get', GetUserStats + id_or_username ) 
         return api
     }
-
-
+    static GetSpins(){
+        const api = new this();
+        api.request('get', ApiGetSpins) 
+        return api
+    }  
+    static GetSpinsBy(param, value){
+        const api = new this();
+        api.request('get', ApiGetSpins + '?query=' + value) 
+        return api
+    }
     static RefreshSpin(){
         const api = new this();
         api.request('post', ApiRefreshSpin, api.headerAuthenticated()) 

@@ -12,15 +12,17 @@ export default class AuthorsPage extends React.Component {
             activePage:  1,
             users: [],
             page: { first: 1, last:2 },
-            item: { first: 1 , last:20, total:100}
+            item: { first: 1 , last:20, total:100},
+            authorFind: ''
         };
+        this.handleChange = this.handleChange.bind(this);
+        this.findAuthors = this.findAuthors.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         
     }
-    handleSelect(eventKey) {
-        this.setState({
-          activePage: eventKey,
-        });
-    } 
+    handleChange (event) {
+      this.setState({ authorFind: event.target.value });
+    }
     
     componentDidMount() {
         const api = Api.GetUsers()
@@ -33,6 +35,25 @@ export default class AuthorsPage extends React.Component {
           }
         );
     }
+  findAuthors(){
+    const api = Api.GetUsersBy(this.state.authorFind)
+    api.then(
+      response => {
+          this.setState({users: response.data})
+      },
+      error => {
+          console.log("error")
+      }
+    );
+  }  
+
+  handleKeyPress(target) {
+    if(target.charCode==13){
+            this.findAuthors()  
+    }
+
+  }
+
   render() {
     const users = this.state.users || []
     return (
@@ -40,11 +61,17 @@ export default class AuthorsPage extends React.Component {
         <h1> MiQ Galaxy Contributors </h1>
         <Row>
         <Col smOffset={6} sm={6}>
-            <FormGroup>
+            <FormGroup onSubmit={this.findAuthors}>
                 <InputGroup>
-                    <FormControl type="text" />
+                    <FormControl
+                      type="text"
+                      value={this.state.authorFind}
+                      placeholder="Enter username of author"
+                      onChange={this.handleChange}
+                      onKeyPress={this.handleKeyPress}
+                    />
                     <InputGroup.Addon>
-                    <Glyphicon glyph="search" />
+                    <Glyphicon glyph="search" onClick={this.findAuthors}/>
                     </InputGroup.Addon>
                 </InputGroup>
             </FormGroup>
@@ -59,22 +86,35 @@ export default class AuthorsPage extends React.Component {
   <tbody>
   {
     users.length>0 && users.map((user) => {
-      var url = "/author/"+user.github_login
+      var url = "/author/"+user.login
       return (
           <tr>
             <td>
-              <a href={url}>{user.github_login}</a>
+              <a href={url}>{user.login}</a>
             </td>
             <td style={{textAlign: 'right'}}>
-              <Button bsSize="small" href={user.github_html_url} target="_blank" style={{marginTop: 10,marginBottom:10}}><TiSocialGithubCircular/> GitHub</Button>
+              <Button bsSize="small" href={user.url_profile} target="_blank" style={{marginTop: 10,marginBottom:10}}><TiSocialGithubCircular/> GitHub</Button>
             </td>
           </tr>
        )
     })
   }
+  {
+    users.length==0 && <tr><td colspan={2}><center>No authors with value {this.state.authorFind}</center></td></tr>
+  }
  </tbody>
       </table>
-      <Row>
+         
+       
+    
+      </div>
+    );
+  }
+}
+
+
+/*
+<Row>
         <Col md={6}>
         <Pagination
             prev
@@ -94,10 +134,5 @@ export default class AuthorsPage extends React.Component {
         ITEMS {this.state.item.first} - {this.state.item.last} OF {this.state.item.total}
         </Col>
 
-      </Row>    
-       
-    
-      </div>
-    );
-  }
-}
+      </Row> 
+*/

@@ -22,7 +22,9 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [{
+    loaders: [
+      { test: /.json$/, loader: "json-loader" },
+      {
       test: path.join(__dirname, 'src'),
       loader: ['babel-loader'],
       query: {

@@ -17,6 +17,7 @@ export default class Menu extends React.Component {
     this.UserLogged  = this.UserLogged.bind(this);
     this.UserLogging = this.UserLogging.bind(this);
     this.UserLogOut  = this.UserLogOut.bind(this);
+    this.postSpins = this.postSpins.bind(this);
     var user = ""
     var ava = ""
     var logged = false
@@ -47,7 +48,19 @@ export default class Menu extends React.Component {
     this.setState({
       logging: value})
   }
-  
+  postSpins(){
+    Api.RefreshSpin()
+    .then(response => {
+        if(response.status == 200){
+          console.log(response)
+        }else{
+          console.log("ERROR "+response)
+        }
+    })
+    .catch(error => {
+        console.log(error)
+    });
+  }
   UserLogOut(){
     Api.SignOut()
     .then(response => {
@@ -86,20 +99,22 @@ export default class Menu extends React.Component {
       <Navbar.Collapse>
         <Nav>
           <MenuItem eventKey={1} href="/about/">About</MenuItem>
-          <MenuItem eventKey={1} href="/authors/">Authors</MenuItem>
+          <MenuItem eventKey={2} href="/authors/">Authors</MenuItem>
+          <MenuItem eventKey={3} href="/search/">Search</MenuItem>
         </Nav>
         <Nav pullRight>
         { logging ? (
-          <NavDropdown eventKey={3} title={buttonLogging} id="basic-nav-dropdown">
+          <NavDropdown eventKey={4} title={buttonLogging} id="basic-nav-dropdown">
           </NavDropdown>
         ): isLoggedIn ? (
-          <NavDropdown eventKey={3} title={buttonLogged} id="basic-nav-dropdown">
-          <MenuItem eventKey={3.1} onClick={ () => this.props.showProfile()}>Profile</MenuItem>
+          <NavDropdown eventKey={4} title={buttonLogged} id="basic-nav-dropdown">
+          <MenuItem eventKey={4.1} onClick={ () => this.props.showProfile()}>Profile</MenuItem>
+          <MenuItem eventKey={3} onClick={ () => this.postSpins()}>Spin Refresh</MenuItem>
           <MenuItem divider />
-          <MenuItem eventKey={3.2} onClick={ () => this.UserLogOut() }>Logout</MenuItem>
+          <MenuItem eventKey={4.2} onClick={ () => this.UserLogOut() }>Logout</MenuItem>
         </NavDropdown>
         ):(
-          <NavDropdown eventKey={3} title={buttonLogin} id="basic-nav-dropdown">
+          <NavDropdown eventKey={4} title={buttonLogin} id="basic-nav-dropdown">
             <GitHubLogin userLoggedAction={this.UserLogged} islogging={this.UserLogging}/>
             <MenuItem className='disabled'><FaGitlab /> GitLab</MenuItem>
           </NavDropdown>
