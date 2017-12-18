@@ -1,4 +1,3 @@
-
 const config = {
     version: '1.0',
     GALAXY_API_BACKEND: 'http://backend-manageiq-galaxy.int.open.paas.redhat.com',

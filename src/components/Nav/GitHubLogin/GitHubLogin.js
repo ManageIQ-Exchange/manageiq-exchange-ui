@@ -19,7 +19,7 @@ class GitHubLogin extends React.Component {
   onBtnClick(){
     this.props.islogging(true)
     const search = toQuery({
-      client_id: process.env.GITHUB_OAUTH_ID,
+      client_id: '6260e5a4c3e173a40795',
       user:'email'
     });
     const popup = PopupWindow.open(
@@ -42,6 +42,7 @@ class GitHubLogin extends React.Component {
     if (!data.code) {
       console.error('\'code\' not found');
     }else{
+      console.info(data.code)
         Api.SignIn(data.code)
         .then(response => {
             sessionUserDataSave(response.data.data)

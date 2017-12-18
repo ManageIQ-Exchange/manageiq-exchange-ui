@@ -7,6 +7,8 @@ import IndexPage from './components/IndexPage';
 import AboutPage from './components/AboutPage';
 import AuthorsPage from './components/AuthorsPage';
 import AuthorProfile from './components/AuthorProfile';
+import SpinView from './components/SpinView';
+import SearchPage from './components/SearchPage';
 import NotFoundPage from './components/NotFoundPage';
 
 const routes = (
@@ -15,6 +17,8 @@ const routes = (
     <Route path="/about/" component={AboutPage}/>
     <Route path="/authors/" component={AuthorsPage}/>
     <Route path="/author/:userName" component={AuthorProfile}/>
+    <Route path="/:userName/:spinName" component={SpinView}/>
+    <Route path="/search/" component={SearchPage}/>
     <Route path="*" component={NotFoundPage}/>
   </Route>
 );
