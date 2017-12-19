@@ -11,7 +11,8 @@ export default class SpinDetails extends React.Component {
 
     render() {
         const spin = this.props.spin;
-        const url_repo = spin.clone_url.replace(".git","")
+        const clone_url = spin.clone_url
+        const url_repo = clone_url ? clone_url.replace(".git","") : ''
         const url_download_zip = url_repo +"/archive/master.zip"
         const url_issues = url_repo +"/issues"
 
@@ -59,7 +60,7 @@ export default class SpinDetails extends React.Component {
                     <div className="panel panel-default">
                         <div className="panel-heading"><center>Clone this repo</center></div>
                         <div claclassNamess="panel-body">
-                        <center> <i>git clone <b>{spin.clone_url}</b></i></center>
+                        <center> <i>git clone <b>{clone_url}</b></i></center>
                         </div>
                     </div>
                   </Col>
