@@ -28,6 +28,7 @@ export default class SpinView extends React.Component {
       api.then(
         response => {
             this.setState({spin: response.data})
+            console.log(response.data)
         },
         error => {
             console.log("error")
@@ -57,7 +58,7 @@ export default class SpinView extends React.Component {
                 <h3>{spin.description}</h3>
                 </Col>
                 <Col md={2}>
-                <img src={user.avatar} />
+                <img src={user.avatar} width="96" height="96" />
                   
                 </Col>
             </Row>
@@ -66,7 +67,7 @@ export default class SpinView extends React.Component {
                     <Tab eventKey={1} title="Details" style={{marginBottom: "10px"}}>
                         <SpinDetails spin={spin}/>
                     </Tab>
-                    <Tab eventKey={2} title="Readme" style={{marginBottom: "10px"}}>
+                    <Tab eventKey={2} title="Readme" style={{marginTop:"10px",marginLeft:"10px"}}>
                     <ReactMarkdown source={spin.readme} />
                     </Tab>
                 </Tabs>

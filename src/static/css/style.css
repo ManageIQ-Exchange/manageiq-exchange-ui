@@ -122,3 +122,39 @@ ul {
   vertical-align: bottom;
   color: #848992;
 }
+
+.download-badge{
+  display: inline-block;
+  font-size: 11px;
+}
+.download-badge .title{
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-top: 0 solid #848992;
+  border-bottom: 0 solid #848992;
+  border-left: 0 solid #848992;
+  border-right: 0 solid #848992;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #555;
+  color: #FFF;
+  line-height: 20px;
+  display: inline-block;
+}
+.download-badge .count{
+  margin-left: -3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top: 0 solid #848992;
+  border-bottom: 0 solid #848992;
+  border-right: 0 solid #848992;
+  border-left: 0 solid #848992;
+  background-color: #4C1;
+  color: #FFF;
+  line-height: 20px;
+  min-width: 20px;
+  text-align: right;
+  display: inline-block;
+}

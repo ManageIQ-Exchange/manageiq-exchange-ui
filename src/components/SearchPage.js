@@ -33,6 +33,7 @@ export default class SearchPage extends React.Component {
         const api = Api.GetSpinsBy("",this.state.spinValue)
         api.then(
           response => {
+              console.log(response.data)
               this.setState({spins: response.data})
           },
           error => {
@@ -60,7 +61,7 @@ export default class SearchPage extends React.Component {
         <div id="container">
           <Row >
             <Col md={10}>
-                <Row style={{backgroundColor: "grey",textAlign: "vertical"}}>
+                <Row style={{textAlign: "vertical"}}>
                     <Col md={2}>
                     <FormGroup controlId="SelectSearch">
                         <FormControl componentClass="select" placeholder="select">
@@ -92,24 +93,38 @@ export default class SearchPage extends React.Component {
                 </Row>
                 <Row>
                 <Col md={12}>
-                <div className="row">
+
+                
+                <div className="row" style={{marginTop: "10px"}}>
                 {
                     spins.length>0 && spins.map((spin) => {
                         var urlauthor = "/author/"+spin.user_id
+                        var urlrepo = "/"+spin.user_login+"/"+spin.name
                     return (
-                        <div className="col-sm-4" style={{borderColor: "#333"}}>
-                            <div className="card">
-                                <div className="card-header">
-                                  {spin.name}
+                        
+                            <div className="col-sm-4" style={{borderColor: "#333",boder: "1px solid #ccc"}}>
+
+                                <div className="panel panel-primary">
+                                    <div className="panel-heading">
+                                        <h3 className="panel-title"><a href={urlrepo}>{spin.name}</a> <span className="badge" style={{float:"right"}}>0</span></h3>
+                                    </div>
+                                    <div className="panel-body">
+                                    {spin.description}
+                                    </div>
+                                    <table className="table" style={{marginLeft: "10px"}}>
+                                        <tr><td>Author</td><td><a href={urlauthor}>{spin.user_login}</a></td></tr>
+                                    </table>
+                                    <div className="panel-footer">
+                                        <button type="button" className="btn btn-default btn-sm" style={{float:"right"}} disabled>
+                                           <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Watch 0
+                                        </button>
+                                        <button type="button" className="btn btn-default btn-sm" style={{marginLeft: "10px"}} disabled>
+                                           <span className="glyphicon glyphicon-star" aria-hidden="true"></span> Star 0
+                                        </button>
+                                    </div>
                                 </div>
-                            <div className="card-block">
-                                <p className="card-text">{spin.description}</p>
-                                <table>
-                                <tr><td>Author</td><td><a href={urlauthor}>{spin.user_id}</a></td></tr>
-                                </table>    
                             </div>
-                            </div>
-                        </div>
+                        
                     )
                     })
                 }
@@ -119,12 +134,7 @@ export default class SearchPage extends React.Component {
             </Col>
           
             <Col md={2}>
-              <div style={{borderBottom: "1px solid #FFF",backgroundColor:"grey"}}>
-                  Top Tags
-              </div>    
-              <div style={{backgroundColor:"grey"}}>
-                  Tags
-                  </div>
+              
             </Col>
           </Row>  
           <Row>
